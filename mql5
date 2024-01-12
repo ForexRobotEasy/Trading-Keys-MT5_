@@ -1,0 +1,126 @@
+mql5
+/*
+Program: Trading Keys MT5
+Developer's Site: forexroboteasy.com
+Development Name: Forex Robot Easy Team
+*/
+
+// Include necessary libraries and dependencies
+#include <MetaTrader5/MetaTrader5.mqh>
+
+// Define global variables
+input double riskPercentage = 2; // Risk percentage per trade
+input bool trailingEnabled = false; // Toggle for profit protection and trailing
+input double trailingDistance = 20; // Trailing stop distance in pips
+
+// Define function to calculate risk based on account balance or equity
+double CalculateRisk()
+{
+   // Get current account information
+   MqlTradeRequest tradeRequest;
+   ZeroMemory(tradeRequest);
+   tradeRequest.action = TRADE_ACTION_BALANCE;
+   MqlTradeResult tradeResult;
+   ZeroMemory(tradeResult);
+   if (!OrderSend(tradeRequest, tradeResult))
+   {
+      Print('Error getting account information: ', GetLastError());
+      return 0;
+   }
+   
+   // Calculate risk based on account balance or equity
+   double riskAmount = 0;
+   if (tradeRequest.action == TRADE_ACTION_BALANCE)
+   {
+      riskAmount = tradeResult.balance * riskPercentage / 100;
+   }
+   else if (tradeRequest.action == TRADE_ACTION_EQUITY)
+   {
+      riskAmount = tradeResult.equity * riskPercentage / 100;
+   }
+   
+   return riskAmount;
+}
+
+// Define function to set profit/stop loss/entry levels using visual lines
+void SetLevels()
+{
+   // Implement drag-and-drop functionality for visual lines
+   // Set profit/stop loss/entry levels based on the position of the lines
+   // ...
+}
+
+// Define function to enable trailing stop
+void EnableTrailing()
+{
+   // Implement trailing stop functionality
+   // ...
+}
+
+// Define function to disable trailing stop
+void DisableTrailing()
+{
+   // Disable trailing stop functionality
+   // ...
+}
+
+// Define main function
+void OnStart()
+{
+   // Implement main trading logic here
+   // ...
+   
+   // Calculate risk per trade
+   double riskAmount = CalculateRisk();
+   
+   // Set profit/stop loss/entry levels
+   SetLevels();
+   
+   // Enable trailing stop if toggled
+   if (trailingEnabled)
+   {
+      EnableTrailing();
+   }
+   else
+   {
+      DisableTrailing();
+   }
+   
+   // Print final risk amount
+   Print('Risk per trade: ', riskAmount);
+}
+
+// Define function to test the software
+void TestSoftware()
+{
+   // Implement testing logic here
+   // ...
+}
+
+// Define function to deliver the completed code
+void DeliverCode()
+{
+   // Implement code delivery logic here
+   // ...
+}
+
+// Define function to provide documentation and instructions
+void ProvideDocumentation()
+{
+   // Implement documentation and instructions logic here
+   // ...
+}
+
+// Call the necessary functions
+void OnTick()
+{
+   // Call the necessary functions here
+   // ...
+}
+
+// Call the necessary functions
+void OnDeinit(const int reason)
+{
+   // Call the necessary functions here
+   // ...
+}
